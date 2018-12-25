@@ -27,6 +27,7 @@ bool Extsort_Manager::init() {
 }
 
 void Extsort_Manager::create_runfile_RS() {
+    std::cout << "start building runfile..." << std::endl;
     inFile.seekg(0, std::ios::end);
     int total_block_num = inFile.tellg() / block_bytes;
     inFile.seekg(0, std::ios::beg);
@@ -82,7 +83,7 @@ void Extsort_Manager::create_runfile_RS() {
     }
 
     run_idx.push_back(pii(start_idx, 0));
-
+    std::cout << "runfile has been built\n" << std::endl;
 #ifdef __DEBUG__
     int total_rec = 0;
     std::cout << "run: " << run_idx.size() << std::endl;
@@ -97,6 +98,7 @@ void Extsort_Manager::create_runfile_RS() {
 
 #endif // __DEBUG__
     statFile << "_________________ * _________________" << std::endl;
+    statFile << "@ " << __TIMESTAMP__ << std::endl;
     statFile << "File size:   " << total_block_num * 4 << " kb" << " (" << total_block_num * 4.0 / 1024 << "mb)" << std::endl;
     statFile << "records num: " << total_block_num * 512 << std::endl;
     statFile << "total runs:  " << run_idx.size() - 1 << std::endl;
@@ -112,7 +114,10 @@ void Extsort_Manager::merge() {
     std::string outfName = rec_fname;
     int merge_times = std::ceil(std::log(run_idx.size() - 1) / std::log(block_num));
     statFile << "Merge times: " << merge_times << std::endl;
+    std::cout << "start merging..." << std::endl;
+    std::cout << "need merge times: " << merge_times << std::endl;
     for (int inc = 0; inc < merge_times; inc ++) {
+        std::cout << ">> merge_order: " << inc << std::endl;
         int loop_times = std::ceil((1.0 * run_idx.size() - 1) / block_num);
         inFile.open(infName, READIN | BINARY);
         outFile.open(outfName, OUTPUT | BINARY);
@@ -133,7 +138,7 @@ void Extsort_Manager::merge() {
         std::remove(rec_fname.c_str());
         std::rename(run_fname.c_str(), rec_fname.c_str());
     }
-
+    std::cout << "done \n" << std::endl;
     merge_cost = std::clock() - start_clc - run_build_cost;
 
     statFile << "Time cost: (ms)" << std::endl;
@@ -141,7 +146,7 @@ void Extsort_Manager::merge() {
     statFile << ">> merge cost    : " << merge_cost << std::endl;
     statFile << ">> total cost    : " << run_build_cost + merge_cost << std::endl;
     statFile << "____________*____ * ____*____________" << std::endl;
-    std::cout << "_________\nextsort success!" << std::endl;
+    std::cout << "___________________\nextsort success!" << std::endl;
 }
 
 void Extsort_Manager::__merge(int idx, std::vector<pii> &new_idx) {
