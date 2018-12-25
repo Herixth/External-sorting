@@ -27,3 +27,9 @@ get a copy of REC.dat(cp_REC.dat), and REC.dat is sorted.
 ./check_sorted.exe REC.dat
 ```
 to check whether REC.dat is sorted.
+
+### test
+```shell
+N = 100000
+filesize = 3.05GB
+cost time = 1.7h
