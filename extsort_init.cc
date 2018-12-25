@@ -42,6 +42,7 @@ void Extsort_Manager::create_runfile_RS() {
             pis run_one = min_heap.remove_add(input_buffer.get_value());
             output_buffer.append_value(run_one);
             if (min_heap.empty()) {
+                std::cout << "run order: " << run_idx.size() << std::endl;
                 run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
                 output_buffer.write_output(outFile);
                 start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
@@ -62,6 +63,7 @@ void Extsort_Manager::create_runfile_RS() {
         output_buffer.append_value(run_one);
     }
 
+    std::cout << "run order: " << run_idx.size() << std::endl;
     run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
     output_buffer.write_output(outFile);
     start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
@@ -77,6 +79,7 @@ void Extsort_Manager::create_runfile_RS() {
                 output_buffer.append_value(run_one);
         }
 
+        std::cout << "run order: " << run_idx.size() << std::endl;
         run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
         output_buffer.write_output(outFile);
         start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
