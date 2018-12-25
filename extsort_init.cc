@@ -33,7 +33,9 @@ void Extsort_Manager::create_runfile_RS() {
     inFile.seekg(0, std::ios::beg);
     min_heap.init(input_buffer, inFile);
     output_buffer.clear();
-
+    
+    double mid = 0;
+    double proc = 0;
     int start_idx = 0;
     for (int idx = block_num; idx < total_block_num; idx++) {
         input_buffer.get_input(inFile);
@@ -42,10 +44,15 @@ void Extsort_Manager::create_runfile_RS() {
             pis run_one = min_heap.remove_add(input_buffer.get_value());
             output_buffer.append_value(run_one);
             if (min_heap.empty()) {
-                std::cout << "run order: " << run_idx.size() << std::endl;
                 run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
                 output_buffer.write_output(outFile);
                 start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
+                mid += double((start_idx - (*run_idx.rbegin()).first - 1) * rec_max + (*run_idx.rbegin()).second) / (total_block_num * rec_max);
+                if (mid > preci) {
+                    proc += mid;
+                    mid = 0;
+                    std::cout << "run-build progress: " << proc * 100 << "%" << std::endl;
+                }
                 min_heap.build_heap();
             }
             if (output_buffer.at_end()) {
@@ -63,10 +70,15 @@ void Extsort_Manager::create_runfile_RS() {
         output_buffer.append_value(run_one);
     }
 
-    std::cout << "run order: " << run_idx.size() << std::endl;
     run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
     output_buffer.write_output(outFile);
     start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
+    mid += double((start_idx - (*run_idx.rbegin()).first - 1) * rec_max + (*run_idx.rbegin()).second) / (total_block_num * rec_max);
+    if (mid > preci) {
+        proc += mid;
+        mid = 0;
+        std::cout << "run-build progress: " << proc * 100 << "%" << std::endl;
+    }
 
     if (last_size < block_num * rec_max) {
         min_heap.build_heap();
@@ -79,10 +91,15 @@ void Extsort_Manager::create_runfile_RS() {
                 output_buffer.append_value(run_one);
         }
 
-        std::cout << "run order: " << run_idx.size() << std::endl;
         run_idx.push_back(pii(start_idx, output_buffer.get_curr()));
         output_buffer.write_output(outFile);
         start_idx = std::ceil(1.0 * outFile.tellp() / block_bytes);
+        mid += double((start_idx - (*run_idx.rbegin()).first - 1) * rec_max + (*run_idx.rbegin()).second) / (total_block_num * rec_max);
+        if (mid > preci) {
+            proc += mid;
+            mid = 0;
+            std::cout << "run-build progress: " << proc * 100 << "%" << std::endl;
+        }
     }
 
     run_idx.push_back(pii(start_idx, 0));
@@ -144,10 +161,10 @@ void Extsort_Manager::merge() {
     std::cout << "done \n" << std::endl;
     merge_cost = std::clock() - start_clc - run_build_cost;
 
-    statFile << "Time cost: (ms)" << std::endl;
-    statFile << ">> run build cost: " << run_build_cost << std::endl;
-    statFile << ">> merge cost    : " << merge_cost << std::endl;
-    statFile << ">> total cost    : " << run_build_cost + merge_cost << std::endl;
+    statFile << "Time cost: (ms) | (min)" << std::endl;
+    statFile << ">> run build cost: " << run_build_cost << " | " << 1.0 * run_build_cost / 60000 << std::endl;
+    statFile << ">> merge cost    : " << merge_cost << " | " << 1.0 * merge_cost / 60000 << std::endl;
+    statFile << ">> total cost    : " << run_build_cost + merge_cost << " | "<< 1.0 * (run_build_cost + merge_cost) / 60000 << std::endl;
     statFile << "____________*____ * ____*____________" << std::endl;
     std::cout << "___________________\nextsort success!" << std::endl;
 }

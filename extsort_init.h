@@ -8,6 +8,7 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -29,6 +30,7 @@ const int block_bytes = 4096;
 const int rec_max     = 512;
 const double exps     = 1e-6;
 const FL max_ft       = 1e7;
+const FL preci        = 0.01;
 
 inline bool comp(float, float);
 
