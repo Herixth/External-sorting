@@ -1,0 +1,10 @@
+_________________ * _________________
+File size:   32 kb (0.03125mb)
+records num: 4096
+total runs:  1
+Merge times: 0
+Time cost: (ms) | (min)
+>> run build cost: 51 | 0.00085
+>> merge cost    : 5 | 8.33333e-05
+>> total cost    : 56 | 0.000933333
+____________*____ * ____*____________

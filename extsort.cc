@@ -10,6 +10,8 @@ int main(int argc, char *argv[]) {
     extsort.create_runfile_RS();
     extsort.merge();
 
+    
+
     //system("pause");
     return 0;
 }
