@@ -8,3 +8,33 @@ Time cost: (ms) | (min)
 >> merge cost    : 5 | 8.33333e-05
 >> total cost    : 56 | 0.000933333
 ____________*____ * ____*____________
+_________________ * _________________
+File size:   32000 kb (31.25mb)
+records num: 4096000
+total runs:  501
+Merge times: 3
+Time cost: (ms) | (min)
+>> run build cost: 1289 | 0.0214833
+>> merge cost    : 1755 | 0.02925
+>> total cost    : 3044 | 0.0507333
+____________*____ * ____*____________
+_________________ * _________________
+File size:   320000 kb (312.5mb)
+records num: 40960000
+total runs:  5001
+Merge times: 5
+Time cost: (ms) | (min)
+>> run build cost: 9584 | 0.159733
+>> merge cost    : 25392 | 0.4232
+>> total cost    : 34976 | 0.582933
+____________*____ * ____*____________
+_________________ * _________________
+File size:   3200000 kb (3125mb)
+records num: 409600000
+total runs:  50003
+Merge times: 6
+Time cost: (ms) | (min)
+>> run build cost: 156128 | 2.60213
+>> merge cost    : 1375649 | 22.9275
+>> total cost    : 1531777 | 25.5296
+____________*____ * ____*____________
