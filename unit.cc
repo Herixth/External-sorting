@@ -9,7 +9,8 @@ using namespace std;
 
 const int maxn = 10000;
 
-int N, filesize, rec, cnt;
+int N, rec, cnt;
+double filesize;
 const string state = "sorted";
 double data[maxn][4]; // runs run-build run-merge total
 
