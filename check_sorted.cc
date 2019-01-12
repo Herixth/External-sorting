@@ -22,20 +22,18 @@ int main(int argc, char *argv[]) {
     statFile = argv[2];
     ofstream outFile(statFile.c_str(), ios::app);
 #endif
+#ifndef __TEST__
     pair<float, unsigned int> rec;
     double prec = -1e7;
     int idx = 0;
+
     while (inFile.read((char *)&rec, sizeof(rec))) {
         if (rec.first < prec) {
-#ifndef __TEST__
             cout << "__________________________________" << endl;
             cout << "file: " << filename << " has not been sorted" << endl;
             cout << "prev-idx: " << idx - 1 << "  key: " << prec << endl;
             cout << "curr-idx: " << idx << "  key: " << rec.first << endl;
             cout << "__________________________________" << endl;
-#else
-            outFile << ",unsorted" << std::endl;
-#endif
             inFile.close();
             return 0;
         }
@@ -43,7 +41,6 @@ int main(int argc, char *argv[]) {
         idx ++;
     }
 
-#ifndef __TEST__
     cout << "file: " << filename << " has been sorted" << endl;
     cout << "__________________________________" << endl;
 #else

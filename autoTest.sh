@@ -1,4 +1,3 @@
-clear
 echo "-----info-----"
 recFile="REC.dat"
 read -p "input statfile: " statFile
@@ -13,6 +12,9 @@ if [ $minN -eq 1 ]; then
     rm -f $statFile
     echo "N,file size,records num,total runs,runs-var,run-build(s),run-build-var,run-merge(s),run-merge-var,total cost(s),total-var,state" > $statFile
 fi
+g++ random_creater.cc -o random_creater.exe
+g++ check_sorted.cc -o check_sorted.exe
+g++ unit.cc -o unit.exe
 clear
 echo "-----test-----"
 for ((N=$minN; N<=$maxN; N+=$step))
@@ -28,5 +30,5 @@ do
     ./unit.exe $srcFile $statFile
     rm -f $srcFile
 done
-rm -f $cprecFile $recFile
+rm -f $cprecFile $recFileecFile
 
