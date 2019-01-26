@@ -1,0 +1,2 @@
+N,file size,records num,total runs,runs-var,run-build(s),run-build-var,run-merge(s),run-merge-var,total cost(s),total-var,state
+1,0.03125,4096,1,0,0.0062,3.6e-007,0.0021,9e-008,0.0083,4.1e-007,sorted
